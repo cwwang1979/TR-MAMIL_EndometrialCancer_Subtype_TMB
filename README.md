@@ -111,7 +111,7 @@ if args.task == 'dummy_mtl_concat':
 ```
 In the terminal run:
 ```
-python create_splits.py --task dummy_mtl_concat --seed 1 --k 10
+python create_splits.py --task dummy_mtl_concat --seed 1 --k 1
 
 ```
 
@@ -135,7 +135,7 @@ else:
 
 Then in a terminal run:
 ```
-CUDA_VISIBLE_DEVICES=0 python main_mtl_concat.py --drop_out --early_stopping --lr 2e-4 --k 10 --exp_code folder_1  --task dummy_mtl_concat  --log_data  --data_root_dir FEATURES_DIRECTORY
+CUDA_VISIBLE_DEVICES=0 python main_mtl_concat.py --drop_out --early_stopping --lr 2e-4 --k 1 --exp_code folder_1  --task dummy_mtl_concat  --log_data  --data_root_dir FEATURES_DIRECTORY
 
 ```
 
@@ -159,7 +159,7 @@ else:
 
 Then in a terminal run:
 ```
-CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 10 --models_exp_code folder_1_s1 --save_exp_code folder_1_s1_eval --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY
+CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code folder_1_s1 --save_exp_code folder_1_s1_eval --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY
 
 ```
 
