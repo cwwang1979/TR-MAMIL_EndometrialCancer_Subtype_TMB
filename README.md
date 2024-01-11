@@ -17,7 +17,6 @@ Execution file, configuration file, and models are download from the [zip](https
 ## Steps
 
 #### 1. Tissue Segmentation and Patching
-we follow the [CLAM's](https://github.com/mahmoodlab/CLAM) WSI processing solution
 
 Place the Whole slide image in ./DATA
 ```
@@ -61,7 +60,6 @@ RESULTS_DIRECTORY/
 
 
 #### 2. Feature Extraction
-we follow the [CLAM's](https://github.com/mahmoodlab/CLAM) WSI processing solution
 
 In the terminal run:
 ```
@@ -83,6 +81,23 @@ FEATURES_DIRECTORY/
     ├── slide_2.pt
     │       ⋮
     └── slide_n.pt
+```
+Open the models/resnet_custom.py to modify the backbone for the feature extraction part:
+```
+def resnet50_baseline(pretrained=False):
+    """Constructs a Modified ResNet-50 model.
+    Args:
+        pretrained (bool): If True, returns a model pre-trained on ImageNet
+          # for 18 layers = Bottleneck_Baseline, [2, 2, 2, 2])
+    # for 50 layers = Bottleneck_Baseline, [3, 4, 6, 3])
+    # for 101 layers = Bottleneck_Baseline, [3, 4, 23, 3])
+    # for 152 layers = Bottleneck_Baseline, [3, 8, 36, 3])
+    
+    """
+    model = ResNet_Baseline(Bottleneck_Baseline, [3, 4, 6, 3])
+    if pretrained:
+        model = load_pretrained_weights(model, 'resnet50')
+    return model
 ```
 
 #### 3. Training Splits
