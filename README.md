@@ -88,11 +88,12 @@ def resnet50_baseline(pretrained=False):
     """Constructs a Modified ResNet-50 model.
     Args:
         pretrained (bool): If True, returns a model pre-trained on ImageNet
-          # for 18 layers = Bottleneck_Baseline, [2, 2, 2, 2])
+    For the proposed method 1, use resnet50 as the backbone
+    For the proposed method 2 and 3, use resnet152 as the backbone    
+    # for 18 layers = Bottleneck_Baseline, [2, 2, 2, 2])
     # for 50 layers = Bottleneck_Baseline, [3, 4, 6, 3])
     # for 101 layers = Bottleneck_Baseline, [3, 4, 23, 3])
     # for 152 layers = Bottleneck_Baseline, [3, 8, 36, 3])
-    
     """
     model = ResNet_Baseline(Bottleneck_Baseline, [3, 4, 6, 3])
     if pretrained:
