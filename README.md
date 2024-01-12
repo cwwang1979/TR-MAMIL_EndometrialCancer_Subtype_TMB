@@ -109,7 +109,7 @@ def resnet50_baseline(pretrained=False):
 Prepare the training and the testing list containing the labels of the files and put it into ./dataset_csv folder
 
 TMB_endometrial_train.csv
-| slide_id       | case_id     | label   | Sex | 
+| slide_id       | case_id     | label   | covariate | 
 | :---           |  :---       | :---:   |:---:| 
 | slide_1        | slide_1     | TMBH   |   F | 
 | slide_2        | slide_2     | TMBL   |   F |
@@ -126,7 +126,7 @@ if args.task == 'dummy_mtl_concat':
                             seed = args.seed, 
                             print_info = True,
                             label_dicts = [{'TMBL':0, 'TMBH':1}, {'F':0, 'M':1}],
-                            label_cols = ['label', 'sex'],
+                            label_cols = ['label', 'covariate'],
                             patient_strat= False)
 ```
 In the terminal run:
@@ -147,7 +147,7 @@ if args.task == 'dummy_mtl_concat':
                             seed = args.seed, 
                             print_info = True,
                             label_dicts = [{'TMBL':0, 'TMBH':1}, {'F':0, 'M':1}],
-                            label_cols = ['label', 'sex'],
+                            label_cols = ['label', 'covariate'],
                             patient_strat= False)
 else:
     raise NotImplementedError
@@ -220,7 +220,7 @@ if args.task == 'dummy_mtl_concat':
                             seed = args.seed, 
                             print_info = True,
                             label_dicts = [{'TMBL':0, 'TMBH':1}, {'F':0, 'M':1}],
-                            label_cols = ['label', 'sex'],
+                            label_cols = ['label', 'covariate'],
                             patient_strat= False)
 else:
     raise NotImplementedError
