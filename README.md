@@ -1,6 +1,10 @@
 # Multilayer-Attention-Multiple-Instance-Deep-Learning-Methods
 Multilayer Attention-based Multiple Instance Deep Learning Methods in Application to Tumor Mutational Burden Assessment and Cancer Subtyping from H&amp;E-stained Whole Slide Images of Endometrial Cancer Samples
 
+## Dataset
+We utilized endometrial cancer anonymized H\&E-stained WSIs collected from The Cancer Genome Atlas (TCGA) cohort. TCGA is a comprehensive repository of tissue specimens from 30 tissue source sites available in the public repositories at the National Institutes of Health, USA ([TCGA Link](https://portal.gdc.cancer.gov/))
+
+
 ## Setup
 
 #### Requirerements
@@ -105,7 +109,7 @@ def resnet50_baseline(pretrained=False):
 Prepare the training and the testing list containing the labels of the files and put it into ./dataset_csv folder
 
 TMB_endometrial_train.csv
-| slide_id       | case_id     | label   | sex | 
+| slide_id       | case_id     | label   | Sex | 
 | :---           |  :---       | :---:   |:---:| 
 | slide_1        | slide_1     | TMBH   |   F | 
 | slide_2        | slide_2     | TMBL   |   F |
@@ -152,6 +156,55 @@ else:
 Then in a terminal run:
 ```
 CUDA_VISIBLE_DEVICES=0 python main_mtl_concat.py --drop_out --early_stopping --lr 2e-4 --k 1 --exp_code folder_1  --task dummy_mtl_concat  --log_data  --data_root_dir FEATURES_DIRECTORY
+
+```
+For the proposed method 1 and 3, modified the model selection and the early stopping part with F1-Score by opening the "core_utils_mtl_concat.py":
+```
+"""F1-SCORE"""
+def __call__(self, epoch, val_f1score, model, ckpt_name = 'checkpoint.pt'):
+
+        score = val_f1score[0]
+        print('score:', score)
+
+        if self.best_score is None:
+            self.best_score = score
+            self.save_checkpoint(val_f1score, model, ckpt_name)
+
+        elif score < self.best_score:
+            self.counter += 1
+            print(f'EarlyStopping counter: {self.counter} out of {self.patience}')
+            if self.counter >= self.patience and epoch > self.stop_epoch:
+                self.early_stop = True
+        else:
+            self.best_score = score
+            self.save_checkpoint(val_f1score, model, ckpt_name)
+
+            self.counter = 0
+
+    def save_checkpoint(self, val_f1score, model, ckpt_name):
+
+        '''Saves model when F1-score increased.'''
+        if self.verbose:
+            print(f'F1-Score increased ({self.val_f1score_max} --> {val_f1score}).  Saving model ...')
+
+        torch.save(model.state_dict(), ckpt_name)
+        self.val_f1score_max = val_f1score
+                  .
+                  .
+                  .
+
+  if early_stopping:
+        assert results_dir
+
+        """Cross Entropy"""
+        early_stopping(epoch, cls_val_loss, model, ckpt_name = os.path.join(results_dir, "s_{}_checkpoint.pt".format(cur)))
+        """F1-score"""
+        # early_stopping(epoch, cls_val_f1score, model, ckpt_name = os.path.join(results_dir, "s_{}_checkpoint.pt".format(cur)))
+
+        
+        if early_stopping.early_stop:
+            print("Early stopping")
+            return True
 
 ```
 
