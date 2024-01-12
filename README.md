@@ -16,7 +16,7 @@ We utilized endometrial cancer anonymized H\&E-stained WSIs collected from The C
 - Python (3.7.7), h5py (2.10.0), matplotlib (3.1.1), numpy (1.18.1), opencv-python (4.1.1), openslide-python (1.1.1), pandas (1.2.4), pillow (6.1.0), PyTorch (1.13.1+cu116), scikit-learn (0.22.1), scipy (1.4.1), tensorflow (1.14.0), tensorboardx (2.6), torchvision (0.14.1+cu116), pixman(0.38.0).
 
 #### Download
-Execution file, configuration file, and models are download from the [zip?????](https://???) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
+Source code file, configuration file, and models are download from the [zip?????](https://???) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
 
 ## Steps
 
@@ -64,16 +64,41 @@ RESULTS_DIRECTORY/
 
 
 #### 2. Feature Extraction
+For the proposed model 1, use resnet50 as the backbone and for the proposed method 2 and 3, use resnet152 as the backbone by following this instruction:
+
+Open the models/resnet_custom.py to modify the backbone for the feature extraction part:
+
+For the proposed method 1:
+```
+def resnet50_baseline(pretrained=False):
+    model = ResNet_Baseline(Bottleneck_Baseline, [3, 4, 6, 3])
+    if pretrained:
+        model = load_pretrained_weights(model, 'resnet50')
+    return model
+```
+
+For the proposed method 2 and 3:
+```
+def resnet50_baseline(pretrained=False):
+    model = ResNet_Baseline(Bottleneck_Baseline, [3, 8, 36, 3])
+    if pretrained:
+        model = load_pretrained_weights(model, 'resnet152')
+    return model
+```
 
 In the terminal run:
 ```
-CUDA_VISIBLE_DEVICES=0,1 python extract_features_fp.py --data_h5_dir RESULTS_DIRECTORY/ --data_slide_dir DATA --csv_path RESULTS_DIRECTORY/process_list_autogen.csv --feat_dir FEATURES_DIRECTORY/ --batch_size 512 --slide_ext .svs
+CUDA_VISIBLE_DEVICES=0,1 python extract_features_fp.py --data_h5_dir RESULTS_DIRECTORY/ --data_slide_dir DATA --csv_path RESULTS_DIRECTORY/process_list_autogen.csv --feat_dir FEATURES_DIRECTORY_RESNETxxx/ --batch_size 512 --slide_ext .svs
 
 ```
-After running in a terminal, the extracted features will be produced in folder named 'FEATURES_DIRECTORY/', like the following structure.
+change "--feat_dir FEATURES_DIRECTORY_RESNETxx/" with the specified backbone to save the features.
 
+
+After running in the terminal, the extracted features will be produced as .pt file for each slide in folder named 'FEATURES_DIRECTORY_RESNETxx/' with specific backbone (e.g. "./FEATURES_DIRECTORY_RESNET50" for the proposed method 1 and "./FEATURES_DIRECTORY_RESNET152" for the proposed method 2 and 3).
+
+example features results for the proposed method 2:
 ```
-FEATURES_DIRECTORY/
+FEATURES_DIRECTORY_RESNET152/
 ├── h5_files/
 │   ├── slide_1.h5
 │   ├── slide_2.h5
@@ -86,29 +111,11 @@ FEATURES_DIRECTORY/
     │       ⋮
     └── slide_n.pt
 ```
-Open the models/resnet_custom.py to modify the backbone for the feature extraction part:
-```
-def resnet50_baseline(pretrained=False):
-    """Constructs a Modified ResNet-50 model.
-    Args:
-        pretrained (bool): If True, returns a model pre-trained on ImageNet
-    For the proposed method 1, use resnet50 as the backbone
-    For the proposed method 2 and 3, use resnet152 as the backbone    
-    # for 18 layers = Bottleneck_Baseline, [2, 2, 2, 2])
-    # for 50 layers = Bottleneck_Baseline, [3, 4, 6, 3])
-    # for 101 layers = Bottleneck_Baseline, [3, 4, 23, 3])
-    # for 152 layers = Bottleneck_Baseline, [3, 8, 36, 3])
-    """
-    model = ResNet_Baseline(Bottleneck_Baseline, [3, 4, 6, 3])
-    if pretrained:
-        model = load_pretrained_weights(model, 'resnet50')
-    return model
-```
 
-#### 3. Training Splits
-Prepare the training and the testing list containing the labels of the files and put it into ./dataset_csv folder
+#### 3. Training and Testing List
+Prepare the training and the testing list containing the labels of the files and put it into ./dataset_csv folder. (We provides the csv sample training and testing list in named "TMB_endometrial_train.csv" and "TMB_endometrial_test.csv")
 
-TMB_endometrial_train.csv
+example of the csv files:
 | slide_id       | case_id     | label   | covariate | 
 | :---           |  :---       | :---:   |:---:| 
 | slide_1        | slide_1     | TMBH   |   F | 
@@ -117,7 +124,53 @@ TMB_endometrial_train.csv
 | slide_n        | slide_n     | TMBL   |   F |
 
 
-To create a splits for training, validation, and evaluation set automatically, do stratified sampling by open the create_splits.py, and change this related code with the specific task we want to investigates
+
+#### 4. Inference and Evaluation
+
+For inference, open the "eval_mtl_concat.py" and set the number of the classes, the label for each class and the testing list location ("TMB_endometrial_test.csv").
+```
+if args.task == 'dummy_mtl_concat':
+    args.n_classes=2
+    dataset = Generic_MIL_MTL_Dataset(csv_path = 'dataset_csv/TMB_endometrial_test.csv',
+                            data_dir= os.path.join(args.data_root_dir,'pt_files'),
+                            shuffle = False, 
+                            seed = args.seed, 
+                            print_info = True,
+                            label_dicts = [{'TMBL':0, 'TMBH':1}, {'F':0, 'M':1}],
+                            label_cols = ['label', 'covariate'],
+                            patient_strat= False)
+else:
+    raise NotImplementedError
+```
+Then run this code in the terminal:
+```
+CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code models --save_exp_code model_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY
+```
+
+To assess the proposed methods: 
+1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code Proposed_Method_xx"
+2. change "--save_exp_code model_prediction" with the "--save_exp_code proposed_modelx_prediction"
+3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNETxx", 
+
+Example for the proposed method 2, run this in the terminal:
+```
+CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code Proposed_Method_2 --save_exp_code proposed_model2_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY_RESNET152
+```
+
+
+These inference part will create a folder named proposed_modelx_prediction in ./eval_results folder (e.g. ./eval_results/proposed_model2_prediction) with this following structure:
+```
+./eval_results/proposed_model2_prediction/
+├── eval_experiment_proposed_model2_prediction.txt
+├── fold0.txt  
+└── summary.txt
+```
+the file "eval_experiment_proposed_model2_prediction.txt" will contain the configuration of the proposed method 2, the file "fold0.txt" will contain the probability and the prediction for each slides and for the evaluation part, access the file "summary.txt"
+
+## Training
+#### Preparing Training Splits
+
+To create a splits for training and validation set from the training list automatically. The default proportion for the training:validation splits used in this study is 9:1. Do the stratified sampling by open the create_splits.py, and change this related code with the directory of the training csv, the number of classess and the labels we want to investigates. 
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
@@ -129,15 +182,16 @@ if args.task == 'dummy_mtl_concat':
                             label_cols = ['label', 'covariate'],
                             patient_strat= False)
 ```
+
 In the terminal run:
 ```
 python create_splits.py --task dummy_mtl_concat --seed 1 --k 1
 
 ```
 
-#### 3. Training
-Open the "main_mtl_concat.py" and set the task and the training list location ("TMB_endometrial_train.csv").
+#### Training
 
+Open the "main_mtl_concat.py" and  and change this related code with the directory of the training csv, the number of classess and the labels we want to investigates. 
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
@@ -153,12 +207,7 @@ else:
     raise NotImplementedError
 ```
 
-Then in a terminal run:
-```
-CUDA_VISIBLE_DEVICES=0 python main_mtl_concat.py --drop_out --early_stopping --lr 2e-4 --k 1 --exp_code folder_1  --task dummy_mtl_concat  --log_data  --data_root_dir FEATURES_DIRECTORY
-
-```
-For the proposed method 1 and 3, modified the model selection and the early stopping part with F1-Score by opening the "core_utils_mtl_concat.py":
+For the proposed method 1 and 3, modified the model selection and the early stopping part with F1-Score by opening the "core_utils_mtl_concat.py" and modify this related part:
 ```
 """F1-SCORE"""
 def __call__(self, epoch, val_f1score, model, ckpt_name = 'checkpoint.pt'):
@@ -196,7 +245,7 @@ def __call__(self, epoch, val_f1score, model, ckpt_name = 'checkpoint.pt'):
   if early_stopping:
         assert results_dir
 
-        """Cross Entropy"""
+        """Cross Entropy""" ###for the proposed method 2 
         early_stopping(epoch, cls_val_loss, model, ckpt_name = os.path.join(results_dir, "s_{}_checkpoint.pt".format(cur)))
         """F1-score"""
         # early_stopping(epoch, cls_val_f1score, model, ckpt_name = os.path.join(results_dir, "s_{}_checkpoint.pt".format(cur)))
@@ -207,30 +256,11 @@ def __call__(self, epoch, val_f1score, model, ckpt_name = 'checkpoint.pt'):
             return True
 
 ```
-
-#### 4. Evaluation
-After the training is completed, open the "eval_mtl_concat.py" and set the task and the evaluation list location ("TMB_endometrial_test.csv").
-
-```
-if args.task == 'dummy_mtl_concat':
-    args.n_classes=2
-    dataset = Generic_MIL_MTL_Dataset(csv_path = 'dataset_csv/TMB_endometrial_test.csv',
-                            data_dir= os.path.join(args.data_root_dir,'pt_files'),
-                            shuffle = False, 
-                            seed = args.seed, 
-                            print_info = True,
-                            label_dicts = [{'TMBL':0, 'TMBH':1}, {'F':0, 'M':1}],
-                            label_cols = ['label', 'covariate'],
-                            patient_strat= False)
-else:
-    raise NotImplementedError
-```
 Then in a terminal run:
 ```
-CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code folder_1_s1 --save_exp_code folder_1_s1_eval --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY
-
+CUDA_VISIBLE_DEVICES=0 python main_mtl_concat.py --drop_out --early_stopping --lr 2e-4 --k 1 --exp_code saved_model  --task dummy_mtl_concat  --log_data  --data_root_dir FEATURES_DIRECTORY_RESNETxx
 ```
-set the '--models_exp_code' with the saved model from the training part.
+change "--exp_code saved_model" with the model name (e.g."--exp_code Proposed_Method_1") and the "--data_root_dir FEATURES_DIRECTORY_RESNETxx" with the features with the specified bacbone (e.g. --data_root_dir FEATURES_DIRECTORY_RESNET50)
 
 ## License
 This extension to the Caffe library is released under a creative commons license, which allows for personal and research use only. For a commercial license please contact Prof Ching-Wei Wang. You can view a license summary here:  
