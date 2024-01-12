@@ -172,12 +172,12 @@ if args.task == 'dummy_mtl_concat':
 else:
     raise NotImplementedError
 ```
-
 Then in a terminal run:
 ```
 CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code folder_1_s1 --save_exp_code folder_1_s1_eval --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY
 
 ```
+set the '--models_exp_code' with the saved model from the training part.
 
 ## License
 This extension to the Caffe library is released under a creative commons license, which allows for personal and research use only. For a commercial license please contact Prof Ching-Wei Wang. You can view a license summary here:  
