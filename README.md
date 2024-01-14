@@ -263,7 +263,7 @@ CUDA_VISIBLE_DEVICES=0 python main_mtl_concat.py --drop_out --early_stopping --l
 change "--exp_code saved_model" with the model name (e.g."--exp_code Proposed_Method_1") and the "--data_root_dir FEATURES_DIRECTORY_RESNETxx" with the features with the specified bacbone (e.g. --data_root_dir FEATURES_DIRECTORY_RESNET50)
 
 ## License
-This extension to the Caffe library is released under a creative commons license, which allows for personal and research use only. For a commercial license please contact Prof Ching-Wei Wang. You can view a license summary here:  
+This Python source code is released under a creative commons license, which allows for personal and research use only. For a commercial license please contact Prof Ching-Wei Wang. You can view a license summary here:  
 http://creativecommons.org/licenses/by-nc/4.0/
 
 
