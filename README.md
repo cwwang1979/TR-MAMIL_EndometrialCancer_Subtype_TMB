@@ -34,7 +34,7 @@ Place the Whole slide image in ./DATA
 
 Then in a terminal run:
 ```
-python create_patches_fp.py --source DATA --save_dir RESULTS_DIRECTORY/ --patch_size 256 --preset tcga.csv --seg --patch --stitch
+python create_patches.py --source DATA --save_dir RESULTS_DIRECTORY/ --patch_size 256 --preset tcga.csv --seg --patch --stitch
 
 ```
 
@@ -88,7 +88,7 @@ def resnet50_baseline(pretrained=False):
 
 In the terminal run:
 ```
-CUDA_VISIBLE_DEVICES=0,1 python extract_features_fp.py --data_h5_dir RESULTS_DIRECTORY/ --data_slide_dir DATA --csv_path RESULTS_DIRECTORY/process_list_autogen.csv --feat_dir FEATURES_DIRECTORY_RESNETxxx/ --batch_size 512 --slide_ext .svs
+CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir RESULTS_DIRECTORY/ --data_slide_dir DATA --csv_path RESULTS_DIRECTORY/process_list_autogen.csv --feat_dir FEATURES_DIRECTORY_RESNETxxx/ --batch_size 512 --slide_ext .svs
 
 ```
 change "--feat_dir FEATURES_DIRECTORY_RESNETxx/" with the specified backbone to save the features.
