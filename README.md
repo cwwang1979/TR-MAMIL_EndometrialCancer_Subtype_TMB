@@ -96,7 +96,7 @@ change "--feat_dir FEATURES_DIRECTORY_RESNETxx/" with the specified backbone to 
 
 After running in the terminal, the extracted features will be produced as .pt file for each slide in folder named 'FEATURES_DIRECTORY_RESNETxx/' with specific backbone (e.g. "./FEATURES_DIRECTORY_RESNET50" for the proposed method 1 and "./FEATURES_DIRECTORY_RESNET152" for the proposed method 2 and 3).
 
-example features results for the proposed method 2:
+example features results for the proposed method 2 and 3:
 ```
 FEATURES_DIRECTORY_RESNET152/
 ├── h5_files/
