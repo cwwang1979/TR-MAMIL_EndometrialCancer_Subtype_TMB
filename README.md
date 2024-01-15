@@ -64,7 +64,7 @@ RESULTS_DIRECTORY/
 
 
 #### 2. Feature Extraction
-For the proposed model 1, use resnet50 as the backbone and for the proposed method 2 and 3, use resnet152 as the backbone by following this instruction:
+For the proposed model 1, use resnet50 as the backbone, and for the proposed method 2 and 3, use resnet152 as the backbone by following this instruction:
 
 Open the models/resnet_custom.py to modify the backbone for the feature extraction part:
 
