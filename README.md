@@ -158,9 +158,9 @@ CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_c
 ```
 
 
-These inference part will create a folder named proposed_modelx_prediction in ./eval_results folder (e.g. ./eval_results/proposed_model2_prediction) with this following structure:
+These inference part will create a folder named proposed_modelx_prediction in ./eval_results folder (e.g. ./eval_results/EVAL_proposed_model2_prediction) with this following structure:
 ```
-./eval_results/proposed_model2_prediction/
+./eval_results/EVAL_proposed_model2_prediction/
 ├── eval_experiment_proposed_model2_prediction.txt
 ├── fold0.txt  
 └── summary.txt
