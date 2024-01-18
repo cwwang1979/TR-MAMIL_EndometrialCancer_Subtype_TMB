@@ -16,7 +16,7 @@ We utilized endometrial cancer anonymized H\&E-stained WSIs collected from The C
 - Python (3.7.7), h5py (2.10.0), matplotlib (3.1.1), numpy (1.18.1), opencv-python (4.1.1), openslide-python (1.1.1), pandas (1.2.4), pillow (6.1.0), PyTorch (1.13.1+cu116), scikit-learn (0.22.1), scipy (1.4.1), tensorflow (1.14.0), tensorboardx (2.6), torchvision (0.14.1+cu116), pixman(0.38.0).
 
 #### Download
-Source code file, configuration file, and models are download from the [zip](https://drive.google.com/file/d/1z0ZQbKIu8BbBq8HQenTru5fovV1JFl9v/view?usp=sharing) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
+Source code file, configuration file, and models are download from the [zip](https://drive.google.com/file/d/1nzHdmnrSw_1-m4KuF26vVRJRcTzgCRiR/view?usp=drive_link) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
 
 ## Steps
 
