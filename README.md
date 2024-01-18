@@ -16,7 +16,7 @@ We utilized endometrial cancer anonymized H\&E-stained WSIs collected from The C
 - Python (3.7.7), h5py (2.10.0), matplotlib (3.1.1), numpy (1.18.1), opencv-python (4.1.1), openslide-python (1.1.1), pandas (1.2.4), pillow (6.1.0), PyTorch (1.13.1+cu116), scikit-learn (0.22.1), scipy (1.4.1), tensorflow (1.14.0), tensorboardx (2.6), torchvision (0.14.1+cu116), pixman(0.38.0).
 
 #### Download
-Source code file, configuration file, and models are download from the [zip](https://drive.google.com/file/d/18ENge9lDvQWhS3eMVDvA-nVvep5tJiKB/view?usp=drive_link) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
+Source code file, configuration file, and models are download from the [zip](https://drive.google.com/file/d/1z0ZQbKIu8BbBq8HQenTru5fovV1JFl9v/view?usp=sharing) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
 
 ## Steps
 
@@ -152,9 +152,9 @@ To assess the proposed methods:
 2. change "--save_exp_code model_prediction" with the "--save_exp_code proposed_modelx_prediction"
 3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNETxx", 
 
-Example for the proposed method 2, run this in the terminal:
+Example for the proposed method 2 in application to the prediction of TMB status for aggressive EC, run this in the terminal:
 ```
-CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code Proposed_Method_2 --save_exp_code proposed_model2_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY_RESNET152
+CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code PM2_Aggressive --save_exp_code proposed_model2_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY_RESNET152
 ```
 
 
