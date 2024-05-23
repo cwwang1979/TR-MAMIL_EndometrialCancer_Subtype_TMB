@@ -2,7 +2,7 @@
 Multilayer Attention-based Multiple Instance Deep Learning Methods in Application to Tumor Mutational Burden Assessment and Cancer Subtyping from H&amp;E-stained Whole Slide Images of Endometrial Cancer Samples
 
 ## Datasets
-In this study, we utilized 918 anonymized whole section H\&E-stained WSIs collected from 529 patients of TCGA cohort. \textcolor{red}{All EC images from TCGA (759 frozen, 144 diagnostic formalin-fixed paraffin-embedded and 15 error WSIs) were determined for TMB status by NGS [TMB-H: TMB $\geq$ 10  (186 patients); TMB-low: TMB < 10 (331 patients); NA: TMB data not available (12 patients).}
+In this study, we utilized 918 anonymized whole section H\&E-stained WSIs collected from 529 patients of TCGA cohort. All EC images from TCGA (759 frozen, 144 diagnostic formalin-fixed paraffin-embedded and 15 error WSIs) were determined for TMB status by NGS [TMB-H: TMB $\geq$ 10  (186 patients); TMB-low: TMB < 10 (331 patients); NA: TMB data not available (12 patients).
 The TCGA cohort was collected from 29 tissue source sites available in the public repositories at the National Institutes of Health, USA ([TCGA Link](https://portal.gdc.cancer.gov/))
 
 
