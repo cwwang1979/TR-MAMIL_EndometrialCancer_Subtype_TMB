@@ -116,7 +116,7 @@ FEATURES_DIRECTORY_RESNET152/
 #### 3. Training and Testing List
 Prepare the training and the testing list containing the labels of the files and put it into ./dataset_csv folder. (We provides the csv sample training and testing list in named "TMB_endometrial_train.csv" and "TMB_endometrial_test.csv")
 
-example of the "TMB prediction for the aggressive subtype" training sets CSV files:
+example of the "TMB prediction for the aggressive subtype" training set list:
 | slide_id       | case_id     | label   | covariate | 
 | :---           |  :---       | :---:   |:---:| 
 | slide_1        | slide_1     | TMBH   |   F | 
@@ -124,7 +124,7 @@ example of the "TMB prediction for the aggressive subtype" training sets CSV fil
 | ...            | ...         | ...     | ... |
 | slide_346        | slide_346     | TMBL   |   F |
 
- example of the"TMB prediction for the aggressive subtype" testing sets CSV files:
+ example of the"TMB prediction for the aggressive subtype" testing set list:
 | slide_id       | case_id     | label   | covariate | 
 | :---           |  :---       | :---:   |:---:| 
 | slide_1        | slide_1     | TMBH   |   F | 
