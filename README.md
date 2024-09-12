@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/d8014d9b-7203-475f-b266-094784502f2a)# Deep Learning Can Predict Key Biomarkers for Tumor Mutational Burden and Classify Aggressive and Non-aggressive Endometrial Cancer directly from Histopathology Whole Slide Images
+# Deep Learning Can Predict Key Biomarkers for Tumor Mutational Burden and Classify Aggressive and Non-aggressive Endometrial Cancer directly from Histopathology Whole Slide Images
 Multilayer Attention-based Multiple Instance Deep Learning Methods in Application to Tumor Mutational Burden Assessment and Cancer Subtyping from H&amp;E-stained Whole Slide Images of Endometrial Cancer Samples
 
 ## Datasets
