@@ -1,4 +1,4 @@
-# Deep Learning Can Predict Key Biomarkers for Tumor Mutational Burden and Classify Aggressive and Non-aggressive Endometrial Cancer directly from Histopathology Whole Slide Images
+![image](https://github.com/user-attachments/assets/d8014d9b-7203-475f-b266-094784502f2a)# Deep Learning Can Predict Key Biomarkers for Tumor Mutational Burden and Classify Aggressive and Non-aggressive Endometrial Cancer directly from Histopathology Whole Slide Images
 Multilayer Attention-based Multiple Instance Deep Learning Methods in Application to Tumor Mutational Burden Assessment and Cancer Subtyping from H&amp;E-stained Whole Slide Images of Endometrial Cancer Samples
 
 ## Datasets
@@ -116,14 +116,21 @@ FEATURES_DIRECTORY_RESNET152/
 #### 3. Training and Testing List
 Prepare the training and the testing list containing the labels of the files and put it into ./dataset_csv folder. (We provides the csv sample training and testing list in named "TMB_endometrial_train.csv" and "TMB_endometrial_test.csv")
 
-example of the csv files:
+example of the "TMB prediction for the aggressive subtype" training sets CSV files:
 | slide_id       | case_id     | label   | covariate | 
 | :---           |  :---       | :---:   |:---:| 
 | slide_1        | slide_1     | TMBH   |   F | 
 | slide_2        | slide_2     | TMBL   |   F |
 | ...            | ...         | ...     | ... |
-| slide_n        | slide_n     | TMBL   |   F |
+| slide_346        | slide_346     | TMBL   |   F |
 
+ example of the"TMB prediction for the aggressive subtype" testing sets CSV files:
+| slide_id       | case_id     | label   | covariate | 
+| :---           |  :---       | :---:   |:---:| 
+| slide_1        | slide_1     | TMBH   |   F | 
+| slide_2        | slide_2     | TMBL   |   F |
+| ...            | ...         | ...     | ... |
+| slide_173       | slide_173     | TMBL   |   F |
 
 
 #### 4. Inference and Evaluation
