@@ -17,7 +17,7 @@ The TCGA cohort was collected from 29 tissue source sites available in the publi
 - Python (3.7.7), h5py (2.10.0), matplotlib (3.1.1), numpy (1.18.1), opencv-python (4.1.1), openslide-python (1.1.1), pandas (1.2.4), pillow (6.1.0), PyTorch (1.13.1+cu116), scikit-learn (0.22.1), scipy (1.4.1), tensorflow (1.14.0), tensorboardx (2.6), torchvision (0.14.1+cu116), pixman(0.38.0).
 
 #### Download
-Source code file, configuration file, and models are download from the [zip](https://drive.google.com/open?id=1h0tFM_OQ3Ls1ZC7JoyIemnIcJWG3sAER&usp=drive_copy) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
+Source code file, configuration file, and models are download from the [zip](https://drive.google.com/open?id=1fBJ49XzT4yEvXVhd_aYQ8W6t73gGUCIy&usp=drive_copy) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
 
 ## Steps
 
@@ -92,10 +92,10 @@ In the terminal run:
 CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir RESULTS_DIRECTORY/ --data_slide_dir DATA --csv_path RESULTS_DIRECTORY/process_list_autogen.csv --feat_dir FEATURES_DIRECTORY_RESNETxxx/ --batch_size 512 --slide_ext .svs
 
 ```
-change "--feat_dir FEATURES_DIRECTORY_RESNETxx/" with the specified backbone to save the features.
+change "--feat_dir FEATURES_DIRECTORY_RESNETxxx/" with the specified backbone to save the features.
 
 
-After running in the terminal, the extracted features will be produced as .pt file for each slide in folder named 'FEATURES_DIRECTORY_RESNETxx/' with specific backbone (e.g. "./FEATURES_DIRECTORY_RESNET50" for the classification of aggressive and non-aggressive and "./FEATURES_DIRECTORY_RESNET152" for the TMB prediction and TP53).
+After running in the terminal, the extracted features will be produced as .pt file for each slide in folder named 'FEATURES_DIRECTORY_RESNETxxx/' with specific backbone (e.g. "./FEATURES_DIRECTORY_RESNET50" for the classification of aggressive and non-aggressive and "./FEATURES_DIRECTORY_RESNET152" for the TMB prediction and TP53).
 
 example features results for the feature extraction step:
 ```
@@ -161,39 +161,39 @@ To assess the proposed methods for the classification of aggressive and non-aggr
 3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNET50", 
 
 To assess the proposed methods for the TMB prediction in aggressive : 
-1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code TR-MAMIL_Aggressive"
-2. change "--save_exp_code model_prediction" with the "--save_exp_code TR-MAMIL_Aggressive_prediction"
+1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code TR-MAMIL_TMB_Aggressive"
+2. change "--save_exp_code model_prediction" with the "--save_exp_code TR-MAMIL_TMB_Aggressive_prediction"
 3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNET152",
 
 To assess the proposed methods for the TMB prediction in  non-aggressive: 
-1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code TR-MAMIL_NonAggressive"
-2. change "--save_exp_code model_prediction" with the "--save_exp_code TR-MAMIL_NonAggressive_prediction"
+1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code TR-MAMIL_TMB_NonAggressive"
+2. change "--save_exp_code model_prediction" with the "--save_exp_code TR-MAMIL_TMB_NonAggressive_prediction"
 3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNET152",
 
 To assess the proposed methods for the Kplain-Meier survival analysis: 
-1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code TR-MAMIL_KM"
-2. change "--save_exp_code model_prediction" with the "--save_exp_code TR-MAMIL_KM_prediction"
+1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code TR-MAMIL_KM_TMB_Aggressive"
+2. change "--save_exp_code model_prediction" with the "--save_exp_code TR-MAMIL_KM_TMB_Aggressive_prediction"
 3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNET50",
 
 Example for the proposed  in application to the prediction of TMB status for aggressive EC, run this in the terminal:
 ```
-CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code TR-MAMIL_Aggressive --save_exp_code TR-MAMIL_Aggressive_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY_RESNET152
+CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code TR-MAMIL_TMB_Aggressive --save_exp_code TR-MAMIL_TMB_Aggressive_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY_RESNET152
 ```
 
 
-These inference part will create a folder named TR-MAMIL_x_prediction in ./eval_results folder (e.g. ./eval_results/EVAL_TR-MAMIL_x_prediction) with this following structure:
+These inference part will create a folder named TR-MAMIL_xxx_prediction in ./eval_results folder (e.g. ./eval_results/EVAL_TR-MAMIL_xxx_prediction) with this following structure:
 ```
-./eval_results/EVAL_TR-MAMIL_x_prediction/
-├── eval_experiment_TR-MAMIL_x_prediction.txt
+./eval_results/EVAL_TR-MAMIL_xxx_prediction/
+├── eval_experiment_TR-MAMIL_xxx_prediction.txt
 ├── fold0.txt  
 └── summary.txt
 ```
-the file "eval_experiment_TR-MAMIL_x_prediction.txt" will contain the configuration of the proposed method, the file "fold0.txt" will contain the probability and the prediction for each slides and for the evaluation part, access the file "summary.txt"
+the file "eval_experiment_TR-MAMIL_xxx_prediction.txt" will contain the configuration of the proposed method, the file "fold0.txt" will contain the probability and the prediction for each slides and for the evaluation part, access the file "summary.txt"
 
 ## Training
 #### Preparing Training Splits
 
-To create a splits for training and validation set from the training list automatically. The default proportion for the training:validation splits used in this study is 9:1. Do the stratified sampling by open the create_splits.py, and change this related code with the directory of the training csv, the number of classess and the labels we want to investigates. 
+To create a splits for training and validation set from the training list automatically. The default proportion for the training: validation splits used in this study is 9:1. Do the stratified sampling by open the create_splits.py, and change this related code with the directory of the training csv, the number of classess and the labels we want to investigates. 
 ```
 if args.task == 'dummy_mtl_concat':
     args.n_classes=2
@@ -283,9 +283,9 @@ def __call__(self, epoch, val_f1score, model, ckpt_name = 'checkpoint.pt'):
 ```
 Then in a terminal run:
 ```
-CUDA_VISIBLE_DEVICES=0 python main_mtl_concat.py --drop_out --early_stopping --lr 2e-4 --k 1 --exp_code saved_model  --task dummy_mtl_concat  --log_data  --data_root_dir FEATURES_DIRECTORY_RESNETxx
+CUDA_VISIBLE_DEVICES=0 python main_mtl_concat.py --drop_out --early_stopping --lr 2e-4 --k 1 --exp_code saved_model  --task dummy_mtl_concat  --log_data  --data_root_dir FEATURES_DIRECTORY_RESNETxxx
 ```
-change "--exp_code saved_model" with the model name (e.g."--exp_code Proposed_Method_for_subtype") and the "--data_root_dir FEATURES_DIRECTORY_RESNETxx" with the features with the specified bacbone (e.g. --data_root_dir FEATURES_DIRECTORY_RESNET50)
+change "--exp_code saved_model" with the model name (e.g."--exp_code TR-MAMIL_Subtyping") and the "--data_root_dir FEATURES_DIRECTORY_RESNETxxx" with the features with the specified bacbone (e.g. --data_root_dir FEATURES_DIRECTORY_RESNET50)
 
 ## License
 This Python source code is released under a creative commons license, which allows for personal and research use only. For a commercial license please contact Prof Ching-Wei Wang. You can view a license summary here:  
