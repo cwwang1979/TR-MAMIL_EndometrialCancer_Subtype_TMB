@@ -152,7 +152,7 @@ else:
 ```
 Then run this code in the terminal:
 ```
-CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code models --save_exp_code model_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY
+CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code models --save_exp_code model_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY_RESNETxxx
 ```
 
 To assess the proposed methods for the classification of aggressive and non-aggressive: 
