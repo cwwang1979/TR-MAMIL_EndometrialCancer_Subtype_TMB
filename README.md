@@ -181,14 +181,14 @@ CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_c
 ```
 
 
-These inference part will create a folder named proposed_modelx_prediction in ./eval_results folder (e.g. ./eval_results/EVAL_proposed_model2_prediction) with this following structure:
+These inference part will create a folder named TR-MAMIL_x_prediction in ./eval_results folder (e.g. ./eval_results/EVAL_TR-MAMIL_x_prediction) with this following structure:
 ```
-./eval_results/EVAL_proposed_model2_prediction/
-├── eval_experiment_proposed_model2_prediction.txt
+./eval_results/EVAL_TR-MAMIL_x_prediction/
+├── eval_experiment_TR-MAMIL_x_prediction.txt
 ├── fold0.txt  
 └── summary.txt
 ```
-the file "eval_experiment_proposed_model2_prediction.txt" will contain the configuration of the proposed method, the file "fold0.txt" will contain the probability and the prediction for each slides and for the evaluation part, access the file "summary.txt"
+the file "eval_experiment_TR-MAMIL_x_prediction.txt" will contain the configuration of the proposed method, the file "fold0.txt" will contain the probability and the prediction for each slides and for the evaluation part, access the file "summary.txt"
 
 ## Training
 #### Preparing Training Splits
