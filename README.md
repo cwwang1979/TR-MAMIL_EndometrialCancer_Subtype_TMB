@@ -17,7 +17,7 @@ The TCGA cohort was collected from 29 tissue source sites available in the publi
 - Python (3.7.7), h5py (2.10.0), matplotlib (3.1.1), numpy (1.18.1), opencv-python (4.1.1), openslide-python (1.1.1), pandas (1.2.4), pillow (6.1.0), PyTorch (1.13.1+cu116), scikit-learn (0.22.1), scipy (1.4.1), tensorflow (1.14.0), tensorboardx (2.6), torchvision (0.14.1+cu116), pixman(0.38.0).
 
 #### Download
-Source code file, configuration file, and models are download from the [zip](https://drive.google.com/file/d/1nzHdmnrSw_1-m4KuF26vVRJRcTzgCRiR/view?usp=drive_link) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
+Source code file, configuration file, and models are download from the [zip](https://drive.google.com/open?id=1h0tFM_OQ3Ls1ZC7JoyIemnIcJWG3sAER&usp=drive_copy) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
 
 ## Steps
 
@@ -155,14 +155,29 @@ Then run this code in the terminal:
 CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code models --save_exp_code model_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY
 ```
 
-To assess the proposed methods: 
-1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code Proposed_Method_xx"
-2. change "--save_exp_code model_prediction" with the "--save_exp_code proposed_modelx_prediction"
-3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNETxx", 
+To assess the proposed methods for the classification of aggressive and non-aggressive: 
+1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code TR-MAMIL_Subtyping"
+2. change "--save_exp_code model_prediction" with the "--save_exp_code TR-MAMIL_Subtyping_prediction"
+3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNET50", 
+
+To assess the proposed methods for the TMB prediction in aggressive : 
+1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code TR-MAMIL_Aggressive"
+2. change "--save_exp_code model_prediction" with the "--save_exp_code TR-MAMIL_Aggressive_prediction"
+3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNET152",
+
+To assess the proposed methods for the TMB prediction in  non-aggressive: 
+1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code TR-MAMIL_NonAggressive"
+2. change "--save_exp_code model_prediction" with the "--save_exp_code TR-MAMIL_NonAggressive_prediction"
+3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNET152",
+
+To assess the proposed methods for the Kplain-Meier survival analysis: 
+1. Load the saved models in the ./results folder by changing "--models_exp_code models" with "--models_exp_code TR-MAMIL_KM"
+2. change "--save_exp_code model_prediction" with the "--save_exp_code TR-MAMIL_KM_prediction"
+3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNET50",
 
 Example for the proposed  in application to the prediction of TMB status for aggressive EC, run this in the terminal:
 ```
-CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code PM2_Aggressive --save_exp_code proposed_model2_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY_RESNET152
+CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code TR-MAMIL_Aggressive --save_exp_code TR-MAMIL_Aggressive_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY_RESNET152
 ```
 
 
@@ -215,7 +230,9 @@ else:
     raise NotImplementedError
 ```
 
-For the classification of aggressive and non-aggressive and TMB prediction in non-aggressive, modified the model selection and the early stopping part with F1-Score by opening the "core_utils_mtl_concat.py" and modify this related part:
+Opening the "core_utils_mtl_concat.py" and modify this related part:
+1. For the classification of aggressive and non-aggressive and TMB prediction in non-aggressive, modified the model selection and the early stopping part with F1-Score.
+2. For the TMB prediction in aggressive part, modified the model selection and the early stopping part with Cross Entropy.
 ```
 """F1-SCORE"""
 def __call__(self, epoch, val_f1score, model, ckpt_name = 'checkpoint.pt'):
