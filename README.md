@@ -95,7 +95,7 @@ CUDA_VISIBLE_DEVICES=0,1 python extract_features.py --data_h5_dir RESULTS_DIRECT
 change "--feat_dir FEATURES_DIRECTORY_RESNETxx/" with the specified backbone to save the features.
 
 
-After running in the terminal, the extracted features will be produced as .pt file for each slide in folder named 'FEATURES_DIRECTORY_RESNETxx/' with specific backbone (e.g. "./FEATURES_DIRECTORY_RESNET50" for the proposed method 1 and "./FEATURES_DIRECTORY_RESNET152" for the proposed method 2 and 3).
+After running in the terminal, the extracted features will be produced as .pt file for each slide in folder named 'FEATURES_DIRECTORY_RESNETxx/' with specific backbone (e.g. "./FEATURES_DIRECTORY_RESNET50" for the classification of aggressive and non-aggressive and "./FEATURES_DIRECTORY_RESNET152" for the TMB prediction and TP53).
 
 example features results for the feature extraction step:
 ```
@@ -160,7 +160,7 @@ To assess the proposed methods:
 2. change "--save_exp_code model_prediction" with the "--save_exp_code proposed_modelx_prediction"
 3. change the "--data_root_dir FEATURES_DIRECTORY" with the "FEATURES_DIRECTORY_RESNETxx", 
 
-Example for the proposed method 2 in application to the prediction of TMB status for aggressive EC, run this in the terminal:
+Example for the proposed  in application to the prediction of TMB status for aggressive EC, run this in the terminal:
 ```
 CUDA_VISIBLE_DEVICES=0 python eval_mtl_concat.py --drop_out --k 1 --models_exp_code PM2_Aggressive --save_exp_code proposed_model2_prediction --split all --task dummy_mtl_concat  --results_dir results --data_root_dir FEATURES_DIRECTORY_RESNET152
 ```
@@ -173,7 +173,7 @@ These inference part will create a folder named proposed_modelx_prediction in ./
 ├── fold0.txt  
 └── summary.txt
 ```
-the file "eval_experiment_proposed_model2_prediction.txt" will contain the configuration of the proposed method 2, the file "fold0.txt" will contain the probability and the prediction for each slides and for the evaluation part, access the file "summary.txt"
+the file "eval_experiment_proposed_model2_prediction.txt" will contain the configuration of the proposed method, the file "fold0.txt" will contain the probability and the prediction for each slides and for the evaluation part, access the file "summary.txt"
 
 ## Training
 #### Preparing Training Splits
@@ -253,7 +253,7 @@ def __call__(self, epoch, val_f1score, model, ckpt_name = 'checkpoint.pt'):
   if early_stopping:
         assert results_dir
 
-        """Cross Entropy""" ###for the proposed method 2 
+        """Cross Entropy""" ###for the TMB prediction of aggressive subtype  
         early_stopping(epoch, cls_val_loss, model, ckpt_name = os.path.join(results_dir, "s_{}_checkpoint.pt".format(cur)))
         """F1-score"""
         # early_stopping(epoch, cls_val_f1score, model, ckpt_name = os.path.join(results_dir, "s_{}_checkpoint.pt".format(cur)))
@@ -268,7 +268,7 @@ Then in a terminal run:
 ```
 CUDA_VISIBLE_DEVICES=0 python main_mtl_concat.py --drop_out --early_stopping --lr 2e-4 --k 1 --exp_code saved_model  --task dummy_mtl_concat  --log_data  --data_root_dir FEATURES_DIRECTORY_RESNETxx
 ```
-change "--exp_code saved_model" with the model name (e.g."--exp_code Proposed_Method_1") and the "--data_root_dir FEATURES_DIRECTORY_RESNETxx" with the features with the specified bacbone (e.g. --data_root_dir FEATURES_DIRECTORY_RESNET50)
+change "--exp_code saved_model" with the model name (e.g."--exp_code Proposed_Method_for_subtype") and the "--data_root_dir FEATURES_DIRECTORY_RESNETxx" with the features with the specified bacbone (e.g. --data_root_dir FEATURES_DIRECTORY_RESNET50)
 
 ## License
 This Python source code is released under a creative commons license, which allows for personal and research use only. For a commercial license please contact Prof Ching-Wei Wang. You can view a license summary here:  
