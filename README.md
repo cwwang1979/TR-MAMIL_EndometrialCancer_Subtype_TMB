@@ -69,7 +69,7 @@ For the proposed model 1, use resnet50 as the backbone, and for the proposed met
 
 Open the models/resnet_custom.py to modify the backbone for the feature extraction part:
 
-For the proposed method 1:
+For the classification of the aggressive and non-aggressive EC:
 ```
 def resnet50_baseline(pretrained=False):
     model = ResNet_Baseline(Bottleneck_Baseline, [3, 4, 6, 3])
@@ -78,7 +78,7 @@ def resnet50_baseline(pretrained=False):
     return model
 ```
 
-For the proposed method 2 and 3:
+For the TMB prediction and TP53 prediction in EC samples:
 ```
 def resnet50_baseline(pretrained=False):
     model = ResNet_Baseline(Bottleneck_Baseline, [3, 8, 36, 3])
@@ -97,7 +97,7 @@ change "--feat_dir FEATURES_DIRECTORY_RESNETxx/" with the specified backbone to 
 
 After running in the terminal, the extracted features will be produced as .pt file for each slide in folder named 'FEATURES_DIRECTORY_RESNETxx/' with specific backbone (e.g. "./FEATURES_DIRECTORY_RESNET50" for the proposed method 1 and "./FEATURES_DIRECTORY_RESNET152" for the proposed method 2 and 3).
 
-example features results for the proposed method 2 and 3:
+example features results for the feature extraction step:
 ```
 FEATURES_DIRECTORY_RESNET152/
 ├── h5_files/
@@ -215,7 +215,7 @@ else:
     raise NotImplementedError
 ```
 
-For the proposed method 1 and 3, modified the model selection and the early stopping part with F1-Score by opening the "core_utils_mtl_concat.py" and modify this related part:
+For the classification of aggressive and non-aggressive and TMB prediction in non-aggressive, modified the model selection and the early stopping part with F1-Score by opening the "core_utils_mtl_concat.py" and modify this related part:
 ```
 """F1-SCORE"""
 def __call__(self, epoch, val_f1score, model, ckpt_name = 'checkpoint.pt'):
