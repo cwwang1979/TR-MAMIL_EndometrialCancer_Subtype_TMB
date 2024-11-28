@@ -1,5 +1,5 @@
 ## Associated Publications 
-(in press) Wang et al. Deep Learning for Endometrial Cancer Subtyping and Predicting Tumor Mutational Burden from Histopathological Slides. npj Precision Oncology
+(In press) Wang et al. Deep Learning for Endometrial Cancer Subtyping and Predicting Tumor Mutational Burden from Histopathological Slides. npj Precision Oncology
 ## Authors
 Ching-Wei Wang*, Nabila Puspita Firdi, Yu-Ching Lee, Tzu-Chiao Chu, Hikam Muzakky, Tzu-Chien Liu, Po-Jen Lai, Tai-Kuang Chao*
 ## Datasets
