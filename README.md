@@ -1,5 +1,5 @@
-# Deep Learning Can Predict Key Biomarkers for Tumor Mutational Burden and Classify Aggressive and Non-aggressive Endometrial Cancer directly from Histopathology Whole Slide Images
-Multilayer Attention-based Multiple Instance Deep Learning Methods in Application to Tumor Mutational Burden Assessment and Cancer Subtyping from H&amp;E-stained Whole Slide Images of Endometrial Cancer Samples
+## Associated Publications 
+(ACCEPTED) Wang et al. (2024) Deep Learning for Endometrial Cancer Subtyping and Predicting Tumor Mutational Burden from Histopathological Slides. npj Precis. Onc.
 
 ## Datasets
 In this study, we utilized 918 anonymized whole section H\&E-stained WSIs collected from 529 patients of TCGA cohort. All EC images from TCGA (759 frozen, 144 diagnostic formalin-fixed paraffin-embedded and 15 error WSIs) were determined for TMB status by NGS [TMB-H: TMB $\geq$ 10  (186 patients); TMB-low: TMB < 10 (331 patients); NA: TMB data not available (12 patients).
