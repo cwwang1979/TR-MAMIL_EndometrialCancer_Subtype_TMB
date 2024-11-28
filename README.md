@@ -17,7 +17,7 @@ The TCGA cohort was collected from 29 tissue source sites available in the publi
 - Python (3.7.7), h5py (2.10.0), matplotlib (3.1.1), numpy (1.18.1), opencv-python (4.1.1), openslide-python (1.1.1), pandas (1.2.4), pillow (6.1.0), PyTorch (1.13.1+cu116), scikit-learn (0.22.1), scipy (1.4.1), tensorflow (1.14.0), tensorboardx (2.6), torchvision (0.14.1+cu116), pixman(0.38.0).
 
 #### Download
-Source code file, configuration file, and models are download from the [zip](https://drive.google.com/open?id=1fBJ49XzT4yEvXVhd_aYQ8W6t73gGUCIy&usp=drive_copy) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
+Source code file, configuration file, and models are download from the [zip](https://drive.google.com/open?id=1YFipFslI7oD__T9dAyZFmES5T-BDvXUg&usp=drive_copy) file.  (For reviewers, the password of the file is in the implementation section of the associated manuscript.)
 
 ## Steps
 
