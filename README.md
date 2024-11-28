@@ -1,7 +1,6 @@
 ## Associated Publications 
 Wang et al. (In press) Deep Learning for Endometrial Cancer Subtyping and Predicting Tumor Mutational Burden from Histopathological Slides. npj Precision Oncology
-## Authors
-Ching-Wei Wang*, Nabila Puspita Firdi, Yu-Ching Lee, Tzu-Chiao Chu, Hikam Muzakky, Tzu-Chien Liu, Po-Jen Lai, Tai-Kuang Chao*
+
 ## Datasets
 In this study, we utilized 918 anonymized whole section H\&E-stained WSIs collected from 529 patients of TCGA cohort. All EC images from TCGA (759 frozen, 144 diagnostic formalin-fixed paraffin-embedded and 15 error WSIs) were determined for TMB status by NGS [TMB-H: TMB $\geq$ 10  (186 patients); TMB-low: TMB < 10 (331 patients); NA: TMB data not available (12 patients).
 The TCGA cohort was collected from 29 tissue source sites available in the public repositories at the National Institutes of Health, USA ([TCGA Link](https://portal.gdc.cancer.gov/)) with the project ID as TCGA-UCEC. The exact case IDs and associated labels can be accessed on the ([link](https://docs.google.com/spreadsheets/d/1FUBoG5nSZLBd3Xgz4r8DJhutv3cIHFmb/edit?usp=sharing&ouid=117132080354444719301&rtpof=true&sd=true)). Full clinical information could be downloaded from ([Uterine Corpus Endometrial Carcinoma (TCGA, PanCancer Atlas)](https://www.cbioportal.org/study/summary?id=ucec_tcga_pan_can_atlas_2018)). 
